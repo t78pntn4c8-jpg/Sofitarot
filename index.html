@@ -136,53 +136,25 @@
 
     <script>
         // Данные карт
-        const cards = [
+                const cards = [
             { 
                 name: "Влюбленные", 
-                img: "https://i.ibb.co/v4mS8m0/pink-lovers.jpg", 
+                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/lovers.jpg", 
                 text: "Сегодня день гармонии. Слушай свое сердце. 💖" 
             },
             { 
                 name: "Звезда", 
-                img: "https://i.ibb.co/hR4KzY0/pink-star.jpg", 
+                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/star.jpg", 
                 text: "Время вдохновения! Твои мечты обретают форму. ✨" 
             },
             { 
                 name: "Солнце", 
-                img: "https://i.ibb.co/vXy0Y7f/pink-sun.jpg", 
+                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/sun.jpg", 
                 text: "Яркий день! Удача сама идет к тебе в руки. ☀️" 
             },
             { 
                 name: "Мир", 
-                img: "https://i.ibb.co/fN8Yyv0/pink-world.jpg", 
+                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/world.jpg", 
                 text: "Завершение этапа. Ты на пороге прекрасного. 🌸" 
             }
         ];
-
-        const cardElement = document.getElementById('tarot-card');
-        const cardImage = document.getElementById('card-image');
-        const cardName = document.getElementById('card-name');
-        const predictionText = document.getElementById('prediction');
-
-        let isOpened = false;
-
-        cardElement.addEventListener('click', () => {
-            if (isOpened) return; // Чтобы нельзя было кликать дважды
-            isOpened = true;
-
-            // Выбираем случайную карту
-            const randomCard = cards[Math.floor(Math.random() * cards.length)];
-
-            // Переворачиваем
-            cardElement.classList.add('is-flipped');
-
-            // Подставляем данные в момент поворота
-            setTimeout(() => {
-                cardImage.src = randomCard.img;
-                cardName.textContent = randomCard.name;
-                predictionText.textContent = randomCard.text;
-            }, 300);
-        });
-    </script>
-</body>
-</html>
