@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magical Pink Tarot 🌸</title>
     <style>
-        /* Общий стиль страницы */
         body {
-            background: linear-gradient(45deg, #fff0f6, #ffdeeb, #f3d9fa);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #854d6a;
+            background: #fff0f6;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,48 +15,31 @@
             margin: 0;
             text-align: center;
         }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Контейнер */
         .container {
-            background: rgba(255, 255, 255, 0.8);
+            background: white;
             padding: 30px;
-            border-radius: 40px;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
-            backdrop-filter: blur(10px);
-            width: 320px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 35px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5);
+            width: 300px;
         }
-
-        h1 { font-size: 26px; color: #d63384; margin-bottom: 5px; }
-        p { font-size: 14px; margin-bottom: 20px; }
-
-        /* Карта */
         .tarot-card {
             width: 180px;
             height: 280px;
-            margin: 0 auto 20px;
+            margin: 20px auto;
             perspective: 1000px;
             cursor: pointer;
         }
-
         .card-inner {
             width: 100%;
             height: 100%;
             position: relative;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.6s;
             transform-style: preserve-3d;
         }
-
-        .tarot-card.is-flipped .card-inner {
+        /* Класс для поворота */
+        .is-flipped .card-inner {
             transform: rotateY(180deg);
         }
-
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -70,91 +49,84 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
         }
-
         .card-front {
             background: #ffc0cb;
-            border: 5px solid #fff;
             font-size: 50px;
             color: white;
         }
-
         .card-back {
             background: white;
             transform: rotateY(180deg);
             overflow: hidden;
         }
-
         .card-back img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
-        /* Кнопка */
         .social-btn {
-            display: inline-block;
+            display: block;
             margin-top: 20px;
-            padding: 12px 25px;
+            padding: 12px;
             background: #f06292;
             color: white;
             text-decoration: none;
             border-radius: 25px;
             font-weight: bold;
-            transition: 0.3s;
         }
-
-        .social-btn:hover {
-            transform: scale(1.05);
-            background: #d63384;
-        }
-
-        #card-name { margin-top: 15px; font-size: 20px; color: #d63384; }
+        h2 { color: #d63384; margin: 15px 0 5px; }
+        p { color: #854d6a; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Magical Tarot</h1>
-        <p>Нажми на карту и узнай свою судьбу</p>
+<div class="container">
+    <h2>Magical Tarot</h2>
+    <p>Нажми на карту 🌸</p>
 
-        <div id="tarot-card" class="tarot-card">
-            <div class="card-inner">
-                <div class="card-front">✨</div>
-                <div class="card-back">
-                    <img id="card-image" src="" alt="Карта дня">
-                </div>
+    <div id="tarot-card" class="tarot-card">
+        <div class="card-inner">
+            <div class="card-front">✨</div>
+            <div class="card-back">
+                <img id="card-image" src="" alt="Карта">
             </div>
         </div>
-
-        <h2 id="card-name">...</h2>
-        <p id="prediction">Твое предсказание появится здесь</p>
-
-        <a href="https://t.me/sofix131" target="_blank" class="social-btn">Мой Telegram 🌸</a>
     </div>
 
-    <script>
-        // Данные карт
-                const cards = [
-            { 
-                name: "Влюбленные", 
-                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/lovers.jpg", 
-                text: "Сегодня день гармонии. Слушай свое сердце. 💖" 
-            },
-            { 
-                name: "Звезда", 
-                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/star.jpg", 
-                text: "Время вдохновения! Твои мечты обретают форму. ✨" 
-            },
-            { 
-                name: "Солнце", 
-                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/sun.jpg", 
-                text: "Яркий день! Удача сама идет к тебе в руки. ☀️" 
-            },
-            { 
-                name: "Мир", 
-                img: "https://raw.githubusercontent.com/t78pntn4c8-jpg/Tarotsof/main/world.jpg", 
-                text: "Завершение этапа. Ты на пороге прекрасного. 🌸" 
-            }
-        ];
+    <h3 id="card-name" style="color:#d63384">...</h3>
+    <p id="prediction">Твое предсказание</p>
+
+    <a href="https://t.me/sofix131" target="_blank" class="social-btn">Мой Telegram 🌸</a>
+</div>
+
+<script>
+    const cards = [
+        { name: "Солнце", img: "https://i.postimg.cc/8zXz4mXm/sun.jpg", text: "Яркий и успешный день! ☀️" },
+        { name: "Звезда", img: "https://i.postimg.cc/0jM3Pz9L/star.jpg", text: "Твои мечты сбываются! ✨" },
+        { name: "Влюбленные", img: "https://i.postimg.cc/65QxYmS6/lovers.jpg", text: "День любви и гармонии! 💖" },
+        { name: "Мир", img: "https://i.postimg.cc/9f8mX0vD/world.jpg", text: "Ты на пороге прекрасного! 🌸" }
+    ];
+
+    const cardContainer = document.getElementById('tarot-card');
+    
+    cardContainer.addEventListener('click', function() {
+        // Если уже перевернута - ничего не делать
+        if (cardContainer.classList.contains('is-flipped')) return;
+
+        // Выбираем случайную карту
+        const randomCard = cards[Math.floor(Math.random() * cards.length)];
+
+        // Сначала подставляем данные
+        document.getElementById('card-image').src = randomCard.img;
+        document.getElementById('card-name').textContent = randomCard.name;
+        document.getElementById('prediction').textContent = randomCard.text;
+
+        // Потом переворачиваем
+        cardContainer.classList.add('is-flipped');
+    });
+</script>
+
+</body>
+</html>
