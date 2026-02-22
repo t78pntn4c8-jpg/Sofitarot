@@ -68,22 +68,24 @@
     <script>
         // СЮДА МЫ ПЕРЕНЕСЛИ ВЕСЬ JS
         const cards = [
-            { name: "Солнце", img: "https://images.unsplash.com/photo-1633463300309-883a483a936a?w=400", text: "Яркий и успешный день!" },
-            { name: "Звезда", img: "https://images.unsplash.com/photo-1601024445121-e5b4cc248a3f?w=400", text: "Мечты сбываются!" }
-        ];
-
-        const tarotCard = document.getElementById('tarot-card');
-        tarotCard.addEventListener('click', () => {
-            const todayCard = cards[Math.floor(Math.random() * cards.length)];
-            tarotCard.classList.add('is-flipped');
-            setTimeout(() => {
-                document.getElementById('card-image').src = todayCard.img;
-                document.getElementById('card-name').textContent = todayCard.name;
-                document.getElementById('prediction').textContent = todayCard.text;
-                document.getElementById('card-name').classList.add('visible');
-                document.getElementById('prediction').classList.add('visible');
-            }, 300);
-        });
-    </script>
-</body>
-</html>
+    { 
+        name: "Влюбленные", 
+        img: "https://i.ibb.co/v4mS8m0/pink-lovers.jpg", 
+        text: "Сегодня день гармонии. Слушай свое сердце, оно подскажет верный путь в чувствах. 💖" 
+    },
+    { 
+        name: "Звезда", 
+        img: "https://i.ibb.co/hR4KzY0/pink-star.jpg", 
+        text: "Время вдохновения! Твои самые нежные мечты начинают обретать форму. Верь в чудо. ✨" 
+    },
+    { 
+        name: "Солнце", 
+        img: "https://i.ibb.co/vXy0Y7f/pink-sun.jpg", 
+        text: "Яркий день! Ты излучаешь свет, и удача сама идет к тебе в руки. Всё получится! ☀️" 
+    },
+    { 
+        name: "Мир", 
+        img: "https://i.ibb.co/fN8Yyv0/pink-world.jpg", 
+        text: "Завершение важного этапа. Ты на пороге чего-то грандиозного и прекрасного. 🌸" 
+    }
+];
