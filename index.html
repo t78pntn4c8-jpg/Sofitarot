@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Pink Tarot 🌸</title>
+    <style>
+        /* СЮДА МЫ ПЕРЕНЕСЛИ ВЕСЬ CSS */
+        body {
+            background: linear-gradient(45deg, #fff0f6, #ffdeeb, #f3d9fa);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Segoe UI', sans-serif;
+            color: #854d6a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 40px 30px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
+            backdrop-filter: blur(12px);
+            width: 320px;
+        }
+        .tarot-card { width: 180px; height: 280px; margin: 20px auto; perspective: 1000px; cursor: pointer; }
+        .card-inner { width: 100%; height: 100%; position: relative; transition: transform 0.8s; transform-style: preserve-3d; }
+        .tarot-card.is-flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .card-front { background: #ffc0cb; border: 5px solid #fff; font-size: 50px; }
+        .card-back { background: white; transform: rotateY(180deg); overflow: hidden; }
+        .card-back img { width: 100%; height: 100%; object-fit: cover; }
+        .social-btn { display: block; margin: 10px 0; padding: 12px; border-radius: 25px; text-decoration: none; color: white; background: #f06292; }
+        .fade-in { opacity: 0; transition: 0.8s; }
+        .fade-in.visible { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Magical Tarot</h1>
+        <p>Твое нежное предсказание</p>
+
+        <div id="tarot-card" class="tarot-card">
+            <div class="card-inner">
+                <div class="card-front">✨</div>
+                <div class="card-back"><img id="card-image" src="" alt=""></div>
+            </div>
+        </div>
+
+        <h2 id="card-name" class="fade-in">Нажми на карту</h2>
+        <p id="prediction" class="fade-in">Узнай будущее...</p>
+
+        <div class="social-links">
+            <a href="#" class="social-btn">Telegram</a>
+        </div>
+    </div>
+
+    <script>
+        // СЮДА МЫ ПЕРЕНЕСЛИ ВЕСЬ JS
+        const cards = [
+            { name: "Солнце", img: "https://images.unsplash.com/photo-1633463300309-883a483a936a?w=400", text: "Яркий и успешный день!" },
+            { name: "Звезда", img: "https://images.unsplash.com/photo-1601024445121-e5b4cc248a3f?w=400", text: "Мечты сбываются!" }
+        ];
+
+        const tarotCard = document.getElementById('tarot-card');
+        tarotCard.addEventListener('click', () => {
+            const todayCard = cards[Math.floor(Math.random() * cards.length)];
+            tarotCard.classList.add('is-flipped');
+            setTimeout(() => {
+                document.getElementById('card-image').src = todayCard.img;
+                document.getElementById('card-name').textContent = todayCard.name;
+                document.getElementById('prediction').textContent = todayCard.text;
+                document.getElementById('card-name').classList.add('visible');
+                document.getElementById('prediction').classList.add('visible');
+            }, 300);
+        });
+    </script>
+</body>
+</html>
