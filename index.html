@@ -19,7 +19,7 @@
             background: white;
             padding: 30px;
             border-radius: 35px;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5);
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.6);
             width: 300px;
         }
         .tarot-card {
@@ -33,10 +33,9 @@
             width: 100%;
             height: 100%;
             position: relative;
-            transition: transform 0.6s;
+            transition: transform 0.8s;
             transform-style: preserve-3d;
         }
-        /* Класс для поворота */
         .is-flipped .card-inner {
             transform: rotateY(180deg);
         }
@@ -49,7 +48,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 4px solid #fff;
+            border: 3px solid #ffdeeb;
         }
         .card-front {
             background: #ffc0cb;
@@ -77,14 +76,14 @@
             font-weight: bold;
         }
         h2 { color: #d63384; margin: 15px 0 5px; }
-        p { color: #854d6a; font-size: 14px; }
+        p { color: #854d6a; font-size: 14px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>Magical Tarot</h2>
-    <p>Нажми на карту 🌸</p>
+    <p>Нажми на карту и узнай судьбу 🌸</p>
 
     <div id="tarot-card" class="tarot-card">
         <div class="card-inner">
@@ -95,33 +94,54 @@
         </div>
     </div>
 
-    <h3 id="card-name" style="color:#d63384">...</h3>
-    <p id="prediction">Твое предсказание</p>
+    <h3 id="card-name" style="color:#d63384; min-height: 1.2em;"></h3>
+    <p id="prediction" style="min-height: 3em;"></p>
 
     <a href="https://t.me/sofix131" target="_blank" class="social-btn">Мой Telegram 🌸</a>
 </div>
 
 <script>
-  const cards = [
+    const cards = [
         { 
-            name: "солнце", 
-            img: "1.jpg", // IMG_3863.jpeg
-            text: "яркий и успешный день, ты сияешь!🌸" 
+            name: "Солнце", 
+            img: "https://upload.wikimedia.org/wikipedia/commons/9/91/RWS_Tarot_19_Sun.jpg", 
+            text: "Яркий и успешный день! Ты сияешь. ☀️" 
         },
         { 
-            name: "луна", 
-            img: "2.jpg", // IMG_3864.jpeg
-            text: "мечты сбываются! Верь в свою путеводную звезду ✨" 
+            name: "Звезда", 
+            img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg", 
+            text: "Мечты сбываются! Верь в свою путеводную звезду. ✨" 
         },
         { 
-            name: "влюбленные", 
-            img: "3.jpg", // IMG_3865.jpeg
-            text: "день любви и гармонии, слушай свое сердце 💖" 
+            name: "Влюбленные", 
+            img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_06_Lovers.jpg", 
+            text: "День любви и гармонии. Слушай своё сердце. 💖" 
         },
         { 
-            name: "мир", 
-            img: "4.jpg", // IMG_3866.jpeg
-            text: "ты на пороге чего грандиозного и прекрасного!☀️" 
+            name: "Мир", 
+            img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg", 
+            text: "Ты на пороге чего-то грандиозного и прекрасного! 🌸" 
         }
     ];
-  
+
+    const cardContainer = document.getElementById('tarot-card');
+    let isFlipped = false;
+    
+    cardContainer.addEventListener('click', function() {
+        if (isFlipped) return; // Чтобы нельзя было кликать дважды
+        isFlipped = true;
+
+        const randomCard = cards[Math.floor(Math.random() * cards.length)];
+
+        // Предзагрузка картинки
+        document.getElementById('card-image').src = randomCard.img;
+        document.getElementById('card-name').textContent = randomCard.name;
+        document.getElementById('prediction').textContent = randomCard.text;
+
+        // Поворот
+        cardContainer.classList.add('is-flipped');
+    });
+</script>
+
+</body>
+</html>
