@@ -5,98 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magical Pink Tarot 🌸</title>
     <style>
-        /* Живой фон с градиентом и сердечками */
         body {
             background: linear-gradient(135deg, #ffdeeb 0%, #f3d9fa 100%);
-            background-attachment: fixed;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            overflow: hidden; /* Чтобы сердечки не создавали полосу прокрутки */
             position: relative;
         }
 
-        /* Создаем плавающие сердечки на фоне */
-        body::before {
-            content: "💖";
+        /* Стиль для летающих сердечек */
+        .heart {
             position: absolute;
-            top: -10%;
-            left: 10%;
+            color: rgba(255, 105, 180, 0.4);
             font-size: 20px;
-            opacity: 0.2;
-            animation: float 10s infinite linear;
-        }
-        
-        body::after {
-            content: "💗";
-            position: absolute;
-            top: 20%;
-            right: 15%;
-            font-size: 30px;
-            opacity: 0.15;
-            animation: float 15s infinite linear reverse;
+            user-select: none;
+            pointer-events: none;
+            animation: move linear infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
-            50% { opacity: 0.5; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        @keyframes move {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Эффект матового стекла для контейнера */
+        /* Стеклянный контейнер */
         .container {
-            background: rgba(255, 255, 255, 0.4); /* Прозрачность */
-            backdrop-filter: blur(15px); /* Размытие фона */
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             padding: 30px;
             border-radius: 40px;
             box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             width: 300px;
             z-index: 10;
+            text-align: center;
         }
 
-        /* Карта */
         .tarot-card {
-            width: 180px;
-            height: 280px;
+            width: 170px;
+            height: 260px;
             margin: 20px auto;
             perspective: 1000px;
             cursor: pointer;
         }
 
         .card-inner {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             position: relative;
             transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
         }
 
-        .is-flipped .card-inner {
-            transform: rotateY(180deg);
-        }
+        .is-flipped .card-inner { transform: rotateY(180deg); }
 
         .card-front, .card-back {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             backface-visibility: hidden;
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.7);
         }
 
         .card-front {
-            background: rgba(255, 192, 203, 0.8);
-            font-size: 60px;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(255, 192, 203, 0.7);
+            font-size: 50px; color: white;
         }
 
         .card-back {
@@ -105,97 +85,80 @@
             overflow: hidden;
         }
 
-        .card-back img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .card-back img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Прозрачная стильная кнопка */
         .social-btn {
             display: block;
-            margin-top: 25px;
+            margin-top: 20px;
             padding: 12px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             color: #d63384;
             text-decoration: none;
             border-radius: 20px;
             font-weight: bold;
             border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
 
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
-        }
-
-        h2 { color: #d63384; margin: 10px 0; font-size: 24px; }
-        h3 { color: #ff69b4; margin: 15px 0 5px; font-size: 20px; }
-        p { color: #854d6a; font-size: 14px; line-height: 1.4; }
+        h2 { color: #d63384; margin: 0; }
+        p { color: #854d6a; font-size: 14px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>Magical Tarot</h2>
-    <p>Доверься своей интуиции 🤍</p>
+    <p>Нажми на карту 🌸</p>
 
     <div id="tarot-card" class="tarot-card">
         <div class="card-inner">
             <div class="card-front">✨</div>
-            <div class="card-back">
-                <img id="card-image" src="" alt="Карта">
-            </div>
+            <div class="card-back"><img id="card-image" src="" alt="Карта"></div>
         </div>
     </div>
 
-    <h3 id="card-name"></h3>
+    <h3 id="card-name" style="color:#d63384; margin: 10px 0;"></h3>
     <p id="prediction"></p>
 
-    <a href="https://t.me/sofix131" target="_blank" class="social-btn">Telegram @sofix131 🌸</a>
+    <a href="https://t.me/sofix131" target="_blank" class="social-btn">Написать мне 💖</a>
 </div>
 
 <script>
-    const cards = [
-        { 
-            name: "Солнце", 
-            img: "https://upload.wikimedia.org/wikipedia/commons/9/91/RWS_Tarot_19_Sun.jpg", 
-            text: "Яркий день! Удача на твоей стороне. ☀️" 
-        },
-        { 
-            name: "Звезда", 
-            img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg", 
-            text: "Твои мечты обретают форму. Верь в чудо! ✨" 
-        },
-        { 
-            name: "Влюбленные", 
-            img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_06_Lovers.jpg", 
-            text: "День гармонии и любви. Слушай сердце. 💖" 
-        },
-        { 
-            name: "Мир", 
-            img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg", 
-            text: "Ты в полной гармонии с собой и миром. 🌸" 
+    // 1. Создаем много сердечек
+    function createHearts() {
+        const heartsCount = 30; // Сколько сердечек будет летать
+        for (let i = 0; i < heartsCount; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's'; // Скорость
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(heart);
         }
+    }
+    createHearts();
+
+    // 2. Логика карт
+    const cards = [
+        { name: "Солнце", img: "https://upload.wikimedia.org/wikipedia/commons/9/91/RWS_Tarot_19_Sun.jpg", text: "Яркий день! Ты сияешь. ☀️" },
+        { name: "Звезда", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg", text: "Мечты сбываются! ✨" },
+        { name: "Влюбленные", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_06_Lovers.jpg", text: "День любви и гармонии. 💖" },
+        { name: "Мир", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg", text: "Всё будет идеально! 🌸" }
     ];
 
-    const cardContainer = document.getElementById('tarot-card');
-    let isFlipped = false;
-    
-    cardContainer.addEventListener('click', function() {
-        if (isFlipped) return;
-        isFlipped = true;
+    const cardUI = document.getElementById('tarot-card');
+    let flipped = false;
 
-        const randomCard = cards[Math.floor(Math.random() * cards.length)];
-
-        document.getElementById('card-image').src = randomCard.img;
-        document.getElementById('card-name').textContent = randomCard.name;
-        document.getElementById('prediction').textContent = randomCard.text;
-
-        cardContainer.classList.add('is-flipped');
+    cardUI.addEventListener('click', () => {
+        if (flipped) return;
+        flipped = true;
+        const res = cards[Math.floor(Math.random() * cards.length)];
+        document.getElementById('card-image').src = res.img;
+        document.getElementById('card-name').textContent = res.name;
+        document.getElementById('prediction').textContent = res.text;
+        cardUI.classList.add('is-flipped');
     });
 </script>
 
