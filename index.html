@@ -102,31 +102,26 @@
 </div>
 
 <script>
-    const cards = [
-        { name: "Солнце", img: "https://i.postimg.cc/8zXz4mXm/sun.jpg", text: "Яркий и успешный день! ☀️" },
-        { name: "Звезда", img: "https://i.postimg.cc/0jM3Pz9L/star.jpg", text: "Твои мечты сбываются! ✨" },
-        { name: "Влюбленные", img: "https://i.postimg.cc/65QxYmS6/lovers.jpg", text: "День любви и гармонии! 💖" },
-        { name: "Мир", img: "https://i.postimg.cc/9f8mX0vD/world.jpg", text: "Ты на пороге прекрасного! 🌸" }
+  const cards = [
+        { 
+            name: "солнце", 
+            img: "1.jpg", // IMG_3863.jpeg
+            text: "яркий и успешный день, ты сияешь!🌸" 
+        },
+        { 
+            name: "луна", 
+            img: "2.jpg", // IMG_3864.jpeg
+            text: "мечты сбываются! Верь в свою путеводную звезду ✨" 
+        },
+        { 
+            name: "влюбленные", 
+            img: "3.jpg", // IMG_3865.jpeg
+            text: "день любви и гармонии, слушай свое сердце 💖" 
+        },
+        { 
+            name: "мир", 
+            img: "4.jpg", // IMG_3866.jpeg
+            text: "ты на пороге чего грандиозного и прекрасного!☀️" 
+        }
     ];
-
-    const cardContainer = document.getElementById('tarot-card');
-    
-    cardContainer.addEventListener('click', function() {
-        // Если уже перевернута - ничего не делать
-        if (cardContainer.classList.contains('is-flipped')) return;
-
-        // Выбираем случайную карту
-        const randomCard = cards[Math.floor(Math.random() * cards.length)];
-
-        // Сначала подставляем данные
-        document.getElementById('card-image').src = randomCard.img;
-        document.getElementById('card-name').textContent = randomCard.name;
-        document.getElementById('prediction').textContent = randomCard.text;
-
-        // Потом переворачиваем
-        cardContainer.classList.add('is-flipped');
-    });
-</script>
-
-</body>
-</html>
+  
