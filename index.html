@@ -5,23 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magical Pink Tarot 🌸</title>
     <style>
+        /* Живой фон с градиентом и сердечками */
         body {
-            background: #fff0f6;
-            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffdeeb 0%, #f3d9fa 100%);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            text-align: center;
+            overflow: hidden;
+            position: relative;
         }
+
+        /* Создаем плавающие сердечки на фоне */
+        body::before {
+            content: "💖";
+            position: absolute;
+            top: -10%;
+            left: 10%;
+            font-size: 20px;
+            opacity: 0.2;
+            animation: float 10s infinite linear;
+        }
+        
+        body::after {
+            content: "💗";
+            position: absolute;
+            top: 20%;
+            right: 15%;
+            font-size: 30px;
+            opacity: 0.15;
+            animation: float 15s infinite linear reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Эффект матового стекла для контейнера */
         .container {
-            background: white;
+            background: rgba(255, 255, 255, 0.4); /* Прозрачность */
+            backdrop-filter: blur(15px); /* Размытие фона */
+            -webkit-backdrop-filter: blur(15px);
             padding: 30px;
-            border-radius: 35px;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.6);
+            border-radius: 40px;
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             width: 300px;
+            z-index: 10;
         }
+
+        /* Карта */
         .tarot-card {
             width: 180px;
             height: 280px;
@@ -29,61 +67,81 @@
             perspective: 1000px;
             cursor: pointer;
         }
+
         .card-inner {
             width: 100%;
             height: 100%;
             position: relative;
-            transition: transform 0.8s;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
         }
+
         .is-flipped .card-inner {
             transform: rotateY(180deg);
         }
+
         .card-front, .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 15px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid #ffdeeb;
+            border: 2px solid rgba(255, 255, 255, 0.8);
         }
+
         .card-front {
-            background: #ffc0cb;
-            font-size: 50px;
+            background: rgba(255, 192, 203, 0.8);
+            font-size: 60px;
             color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+
         .card-back {
             background: white;
             transform: rotateY(180deg);
             overflow: hidden;
         }
+
         .card-back img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
+        /* Прозрачная стильная кнопка */
         .social-btn {
             display: block;
-            margin-top: 20px;
+            margin-top: 25px;
             padding: 12px;
-            background: #f06292;
-            color: white;
+            background: rgba(255, 255, 255, 0.3);
+            color: #d63384;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 20px;
             font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
-        h2 { color: #d63384; margin: 15px 0 5px; }
-        p { color: #854d6a; font-size: 14px; margin-bottom: 10px; }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
+        }
+
+        h2 { color: #d63384; margin: 10px 0; font-size: 24px; }
+        h3 { color: #ff69b4; margin: 15px 0 5px; font-size: 20px; }
+        p { color: #854d6a; font-size: 14px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>Magical Tarot</h2>
-    <p>Нажми на карту и узнай судьбу 🌸</p>
+    <p>Доверься своей интуиции 🤍</p>
 
     <div id="tarot-card" class="tarot-card">
         <div class="card-inner">
@@ -94,10 +152,10 @@
         </div>
     </div>
 
-    <h3 id="card-name" style="color:#d63384; min-height: 1.2em;"></h3>
-    <p id="prediction" style="min-height: 3em;"></p>
+    <h3 id="card-name"></h3>
+    <p id="prediction"></p>
 
-    <a href="https://t.me/sofix131" target="_blank" class="social-btn">Мой Telegram 🌸</a>
+    <a href="https://t.me/sofix131" target="_blank" class="social-btn">Telegram @sofix131 🌸</a>
 </div>
 
 <script>
@@ -105,22 +163,22 @@
         { 
             name: "Солнце", 
             img: "https://upload.wikimedia.org/wikipedia/commons/9/91/RWS_Tarot_19_Sun.jpg", 
-            text: "Яркий и успешный день! Ты сияешь. ☀️" 
+            text: "Яркий день! Удача на твоей стороне. ☀️" 
         },
         { 
             name: "Звезда", 
             img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg", 
-            text: "Мечты сбываются! Верь в свою путеводную звезду. ✨" 
+            text: "Твои мечты обретают форму. Верь в чудо! ✨" 
         },
         { 
             name: "Влюбленные", 
             img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_06_Lovers.jpg", 
-            text: "День любви и гармонии. Слушай своё сердце. 💖" 
+            text: "День гармонии и любви. Слушай сердце. 💖" 
         },
         { 
             name: "Мир", 
             img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg", 
-            text: "Ты на пороге чего-то грандиозного и прекрасного! 🌸" 
+            text: "Ты в полной гармонии с собой и миром. 🌸" 
         }
     ];
 
@@ -128,17 +186,15 @@
     let isFlipped = false;
     
     cardContainer.addEventListener('click', function() {
-        if (isFlipped) return; // Чтобы нельзя было кликать дважды
+        if (isFlipped) return;
         isFlipped = true;
 
         const randomCard = cards[Math.floor(Math.random() * cards.length)];
 
-        // Предзагрузка картинки
         document.getElementById('card-image').src = randomCard.img;
         document.getElementById('card-name').textContent = randomCard.name;
         document.getElementById('prediction').textContent = randomCard.text;
 
-        // Поворот
         cardContainer.classList.add('is-flipped');
     });
 </script>
