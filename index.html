@@ -5,87 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magical Pink Tarot 🌸</title>
     <style>
-        /* СЮДА МЫ ПЕРЕНЕСЛИ ВЕСЬ CSS */
+        /* Общий стиль страницы */
         body {
             background: linear-gradient(45deg, #fff0f6, #ffdeeb, #f3d9fa);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #854d6a;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            text-align: center;
         }
+
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
+        /* Контейнер */
         .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
             border-radius: 40px;
             box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             width: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        .tarot-card { width: 180px; height: 280px; margin: 20px auto; perspective: 1000px; cursor: pointer; }
-        .card-inner { width: 100%; height: 100%; position: relative; transition: transform 0.8s; transform-style: preserve-3d; }
-        .tarot-card.is-flipped .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .card-front { background: #ffc0cb; border: 5px solid #fff; font-size: 50px; }
-        .card-back { background: white; transform: rotateY(180deg); overflow: hidden; }
-        .card-back img { width: 100%; height: 100%; object-fit: cover; }
-        .social-btn { display: block; margin: 10px 0; padding: 12px; border-radius: 25px; text-decoration: none; color: white; background: #f06292; }
-        .fade-in { opacity: 0; transition: 0.8s; }
-        .fade-in.visible { opacity: 1; }
+
+        h1 { font-size: 26px; color: #d63384; margin-bottom: 5px; }
+        p { font-size: 14px; margin-bottom: 20px; }
+
+        /* Карта */
+        .tarot-card {
+            width: 180px;
+            height: 280px;
+            margin: 0 auto 20px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .tarot-card.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-front {
+            background: #ffc0cb;
+            border: 5px solid #fff;
+            font-size: 50px;
+            color: white;
+        }
+
+        .card-back {
+            background: white;
+            transform: rotateY(180deg);
+            overflow: hidden;
+        }
+
+        .card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Кнопка */
+        .social-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #f06292;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.05);
+            background: #d63384;
+        }
+
+        #card-name { margin-top: 15px; font-size: 20px; color: #d63384; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Magical Tarot</h1>
-        <p>Твое нежное предсказание</p>
+        <p>Нажми на карту и узнай свою судьбу</p>
 
         <div id="tarot-card" class="tarot-card">
             <div class="card-inner">
                 <div class="card-front">✨</div>
-                <div class="card-back"><img id="card-image" src="" alt=""></div>
+                <div class="card-back">
+                    <img id="card-image" src="" alt="Карта дня">
+                </div>
             </div>
         </div>
 
-        <h2 id="card-name" class="fade-in">Нажми на карту</h2>
-        <p id="prediction" class="fade-in">Узнай будущее...</p>
+        <h2 id="card-name">...</h2>
+        <p id="prediction">Твое предсказание появится здесь</p>
 
-        <div class="social-links">
-            <a href="#" class="social-btn">Telegram</a>
-        </div>
+        <a href="https://t.me/sofix131" target="_blank" class="social-btn">Мой Telegram 🌸</a>
     </div>
 
     <script>
-        // СЮДА МЫ ПЕРЕНЕСЛИ ВЕСЬ JS
+        // Данные карт
         const cards = [
-    { 
-        name: "Влюбленные", 
-        img: "https://i.ibb.co/v4mS8m0/pink-lovers.jpg", 
-        text: "Сегодня день гармонии. Слушай свое сердце, оно подскажет верный путь в чувствах. 💖" 
-    },
-    { 
-        name: "Звезда", 
-        img: "https://i.ibb.co/hR4KzY0/pink-star.jpg", 
-        text: "Время вдохновения! Твои самые нежные мечты начинают обретать форму. Верь в чудо. ✨" 
-    },
-    { 
-        name: "Солнце", 
-        img: "https://i.ibb.co/vXy0Y7f/pink-sun.jpg", 
-        text: "Яркий день! Ты излучаешь свет, и удача сама идет к тебе в руки. Всё получится! ☀️" 
-    },
-    { 
-        name: "Мир", 
-        img: "https://i.ibb.co/fN8Yyv0/pink-world.jpg", 
-        text: "Завершение важного этапа. Ты на пороге чего-то грандиозного и прекрасного. 🌸" 
-    }
-];
+            { 
+                name: "Влюбленные", 
+                img: "https://i.ibb.co/v4mS8m0/pink-lovers.jpg", 
+                text: "Сегодня день гармонии. Слушай свое сердце. 💖" 
+            },
+            { 
+                name: "Звезда", 
+                img: "https://i.ibb.co/hR4KzY0/pink-star.jpg", 
+                text: "Время вдохновения! Твои мечты обретают форму. ✨" 
+            },
+            { 
+                name: "Солнце", 
+                img: "https://i.ibb.co/vXy0Y7f/pink-sun.jpg", 
+                text: "Яркий день! Удача сама идет к тебе в руки. ☀️" 
+            },
+            { 
+                name: "Мир", 
+                img: "https://i.ibb.co/fN8Yyv0/pink-world.jpg", 
+                text: "Завершение этапа. Ты на пороге прекрасного. 🌸" 
+            }
+        ];
+
+        const cardElement = document.getElementById('tarot-card');
+        const cardImage = document.getElementById('card-image');
+        const cardName = document.getElementById('card-name');
+        const predictionText = document.getElementById('prediction');
+
+        let isOpened = false;
+
+        cardElement.addEventListener('click', () => {
+            if (isOpened) return; // Чтобы нельзя было кликать дважды
+            isOpened = true;
+
+            // Выбираем случайную карту
+            const randomCard = cards[Math.floor(Math.random() * cards.length)];
+
+            // Переворачиваем
+            cardElement.classList.add('is-flipped');
+
+            // Подставляем данные в момент поворота
+            setTimeout(() => {
+                cardImage.src = randomCard.img;
+                cardName.textContent = randomCard.name;
+                predictionText.textContent = randomCard.text;
+            }, 300);
+        });
+    </script>
+</body>
+</html>
